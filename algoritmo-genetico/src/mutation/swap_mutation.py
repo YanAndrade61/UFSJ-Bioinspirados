@@ -1,5 +1,5 @@
-from abstract_mutation import AbstractMutation
 import numpy as np
+from src.mutation.abstract_mutation import AbstractMutation
 
 class SwapMutation(AbstractMutation):
     """

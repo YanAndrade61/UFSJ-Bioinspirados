@@ -1,4 +1,4 @@
-from abstract_mutation import AbstractMutation
+from src.mutation.abstract_mutation import AbstractMutation
 import numpy as np
 
 class PositionMutation(AbstractMutation):

@@ -1,4 +1,4 @@
-from abstract_crossover import AbstractCrossover
+from src.crossover.abstract_crossover import AbstractCrossover
 import numpy as np
 
 
