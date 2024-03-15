@@ -28,7 +28,7 @@ class GABase:
            n_genes (int): The number of genes in each individual.
            n_generations (int, optional): The number of generations to run.
            mutation_rate (float, optional): The probability of mutation.
-           otimize: Callable[[np.ndarray], int]: The function to select best individuals
+           otimizer (Callable[[np.ndarray], int]): The function to select best individuals
                                                  np.argmin() or np.argmax.
        """
        self.n_individuals = n_individuals
