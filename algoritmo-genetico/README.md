@@ -1,28 +1,45 @@
-# Algoritmos Genéticos
+# Genetic Algorithms
 
-## O que são?
+## What Are They?
 
-\|Os algoritmos genéticos são uma classe de algoritmos de otimização inspirados no processo de seleção natural que ocorre na natureza. Eles são amplamente utilizados para resolver problemas de otimização, busca e aprendizado de máquina.
+Genetic algorithms are a class of optimization algorithms inspired by the natural selection process that occurs in nature. They are widely used to solve optimization, search, and machine learning problems.
 
-## Projeto
+## Project
 
-Este projeto visa fornecer um template flexível de algoritmo genético que pode ser facilmente adaptado e utilizado em diferentes situações. Ele permite a alteração da modelagem dos dados, criação de indivíduos e função objetivo de acordo com as necessidades específicas do problema em questão.
+This project provides a flexible template for genetic algorithms, adaptable to various situations. It allows for data modeling, individual creation, and objective function definition as needed for the specific problem at hand.
 
-## Funcionalidades Implementadas
+## Implemented Modules
 
-### Mutação
+### Mutation
 
-A função de mutação introduz variações nos indivíduos da população, permitindo a exploração de novas soluções.
+The mutation function introduces variations in the individuals of the population, allowing for the exploration of new solutions.
 
-### Seleção
+- **Position Mutation:** Randomly alters the value of a gene at a specific position.
+- **Swap Mutation:** Randomly swaps two genes in an individual.
 
-A seleção é o processo pelo qual os indivíduos mais aptos são escolhidos para reprodução.
+### Selection
+
+Selection is the process by which the fittest individuals are chosen for reproduction.
+
+- **Tournament Selection:** Individuals are grouped into tournaments, and the best from each tournament is selected for reproduction.
 
 ### Crossover
 
-O crossover combina informações genéticas de dois indivíduos para gerar descendentes.
+Crossover combines genetic information from two individuals to generate offspring.
 
-## Exemplos
+- **Single-Point Crossover:** A crossover point is chosen, and the parts of the parents before and after this point are exchanged to generate offspring.
+- **Order Crossover:** Maintains the order of genes from one parent and fills in the missing genes from the other parent.
 
-- **Problema de Otimização:** Encontrar a melhor rota para visitar várias cidades uma única vez.
-- **Problema de Design:** Projetar uma antena que maximize a cobertura de sinal em uma área específica.
+## Examples
+
+- **Binary Function Optimization Problem:** Finding the minimum or maximum of a function by discretizing the search space with a binary representation of individuals.
+
+## Usage
+
+First, install the requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+In the test folder, there are usage examples for each implemented module.
