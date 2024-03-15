@@ -52,11 +52,13 @@ class GABase:
        Returns:
            np.ndarray: The best individual found after the simulation.
        """
-
+       self.history_individuals = []
        individuals = self.create_individuals()
 
        for i in range(self.n_generations):
 
+           self.history_individuals.append(individuals)
+           
            fitness = self.fitness(individuals)
            parents = self.selection.select(fitness, self.otimizer)
            new_ind = self.crossover.crossover(individuals, parents)

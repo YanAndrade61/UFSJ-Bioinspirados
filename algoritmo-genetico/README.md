@@ -1,33 +1,28 @@
-# UFSJ-Bioinspirados
+# Algoritmos Genéticos
 
-├── README.md
-├── LICENSE
-├── requirements.txt
-├── setup.py
-├── tests
-│   ├── __init__.py
-│   ├── test_base.py
-│   └── test_examples.py
-├── examples
-│   ├── __init__.py
-│   ├── binary_function_otimizer.py
-│   └── traveling_salesman.py
-└── src
-    ├── __init__.py
-    ├── base.py
-    ├── selection
-    │   ├── __init__.py
-    │   ├── abstract_selection.py  (New)
-    │   ├── binary_tournament.py  (Move to selection)
-    │   └── roulette_wheel.py     (Move to selection)
-    ├── mutation
-    │   ├── __init__.py
-    │   ├── abstract_mutation.py  (New)
-    │   ├── mutate_pos.py           (Move to mutation)
-    │   └── mutate_ind.py          (Move to mutation)
-    ├── crossover
-    │   ├── __init__.py
-    │   ├── abstract_crossover.py (New)
-    │   ├── ox_cross.py             (Move to crossover)
-    │   └── point_cross.py          (Move to crossover)
-    └── utils.py
+## O que são?
+
+\|Os algoritmos genéticos são uma classe de algoritmos de otimização inspirados no processo de seleção natural que ocorre na natureza. Eles são amplamente utilizados para resolver problemas de otimização, busca e aprendizado de máquina.
+
+## Projeto
+
+Este projeto visa fornecer um template flexível de algoritmo genético que pode ser facilmente adaptado e utilizado em diferentes situações. Ele permite a alteração da modelagem dos dados, criação de indivíduos e função objetivo de acordo com as necessidades específicas do problema em questão.
+
+## Funcionalidades Implementadas
+
+### Mutação
+
+A função de mutação introduz variações nos indivíduos da população, permitindo a exploração de novas soluções.
+
+### Seleção
+
+A seleção é o processo pelo qual os indivíduos mais aptos são escolhidos para reprodução.
+
+### Crossover
+
+O crossover combina informações genéticas de dois indivíduos para gerar descendentes.
+
+## Exemplos
+
+- **Problema de Otimização:** Encontrar a melhor rota para visitar várias cidades uma única vez.
+- **Problema de Design:** Projetar uma antena que maximize a cobertura de sinal em uma área específica.
