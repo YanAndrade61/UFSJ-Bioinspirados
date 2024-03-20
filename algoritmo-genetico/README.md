@@ -33,6 +33,8 @@ Crossover combines genetic information from two individuals to generate offsprin
 ## Examples
 
 - **Binary Function Optimization Problem:** Finding the minimum or maximum of a function by discretizing the search space with a binary representation of individuals.
+- **Traveling Salesman Problem:** Finding the minimum path that pass all the cities and return to origin with a order representation of individuals.
+
 
 ## Usage
 
