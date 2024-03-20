@@ -2,26 +2,31 @@ import numpy as np
 from typing import Callable
 from src.GA_base import GABase
 
-class TravelingSalesman(GABase):
+class BinaryKnapSack(GABase):
     """
-    Solves the Traveling Salesman Problem (TSP) using a Genetic Algorithm.
+    Solves the Binary KnapSack Problem (TSP) using a Genetic Algorithm.
 
-    This class extends GABase to find the shortest route visiting each city 
-    exactly once and returning to the origin. Each individual represents a 
-    different order to pass trougth the cities.
+    This class extends GABase to find the best combination of items that
+    maximize the profit of the knapsack. Each individual represented by a
+    binary array indicating wheter a item is inside or not.
     """
     
     def __init__(self, n_individuals: int, n_genes: int, 
                 otimizer: Callable[[np.ndarray], int], n_generations: int = 500,
-                mutation_rate: float = 0.1, distance_matrix: np.ndarray = None):
+                mutation_rate: float = 0.1, weights: np.ndarray = None, 
+                profits: np.ndarray = None, capacity: int = None):
         """
         Initializes the binary function optimizer.
 
         Args:
-            distance_matrix (np.ndarray): The distance matrix of all cities. 
+            weights (np.ndarray): The weight of each item. 
+            profits (np.ndarray): The profit of each item. 
+            capacity (int): The capacity of knapsack. 
         """
 
-        self.distance_matrix = distance_matrix
+        self.weights = weights
+        self.profits = profits 
+        self.capacity = capacity 
         super().__init__(n_individuals, n_genes, otimizer, n_generations, mutation_rate)
 
     def create_individuals(self) -> np.ndarray:
@@ -34,8 +39,7 @@ class TravelingSalesman(GABase):
             np.ndarray: The initial population of individuals.
         """
 
-        return np.array([np.random.choice(self.n_genes, self.n_genes, replace=False)
-                        for _ in range(self.n_individuals)])
+        return np.random.randint(0, 2, (self.n_individuals, self.n_genes))
     
     def fitness(self, individuals: np.ndarray) -> np.ndarray:
         """
@@ -51,8 +55,13 @@ class TravelingSalesman(GABase):
         individuals_fitness = np.empty(self.n_individuals, dtype=float)
 
         for i,ind in enumerate(individuals):
-            path_distance = [self.distance_matrix[ind[j-1]][ind[j]]
-                             for j in range(self.n_genes)]
-            individuals_fitness[i] = np.sum(path_distance)
+            ind_weight = np.sum(self.weights * ind)
+            profits_ind = np.sum(self.profits * ind)
+
+            if ind_weight < self.capacity:
+                individuals_fitness[i] = profits_ind
+            else:
+                penalty = profits_ind*(ind_weight-self.capacity)
+                individuals_fitness[i] = profits_ind - penalty
 
         return individuals_fitness
