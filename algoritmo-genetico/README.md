@@ -34,7 +34,7 @@ Crossover combines genetic information from two individuals to generate offsprin
 
 - **Binary Function Optimization Problem:** Finding the minimum or maximum of a function by discretizing the search space with a binary representation of individuals.
 - **Traveling Salesman Problem:** Finding the minimum path that pass all the cities and return to origin with a order representation of individuals.
-
+- **Binary KnapSack Problem:** Finding the best combination of items that maximize the profit of knapsackwith a binary representation of individuals.
 
 ## Usage
 
