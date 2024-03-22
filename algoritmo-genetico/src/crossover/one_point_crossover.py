@@ -25,7 +25,7 @@ class OnePointCrossover(AbstractCrossover):
         for i in range(0, n_individuals, 2):
             parent1, parent2 = individuals[parents[i]], individuals[parents[i + 1]]
 
-            point = np.random.randint(1, n_genes - 2)
+            point = np.random.randint(1, n_genes)
 
             offspring1 = np.copy(parent1)
             offspring2 = np.copy(parent2)

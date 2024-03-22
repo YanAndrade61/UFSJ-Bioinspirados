@@ -1,4 +1,5 @@
 import numpy as np
+import itertools
 from typing import Callable
 from src.selection.abstract_selection import AbstractSelection
 from src.mutation.abstract_mutation import AbstractMutation
@@ -18,7 +19,8 @@ class GABase:
     methods to define problem-specific representation and fitness evaluation.
     """
 
-    def __init__(self, n_individuals: int, n_genes: int, otimizer: Callable[[np.ndarray], int],
+    def __init__(self, n_individuals: int, n_genes: int, 
+                 otimizer: Callable[[np.ndarray], int],
                  n_generations: int = 500, mutation_rate: float = 0.1):
        """
        Initializes the genetic algorithm base class.
@@ -104,3 +106,61 @@ class GABase:
 
     def set_crossover(self, crossover: AbstractCrossover):
         self.crossover = crossover
+
+    def grid_search(self, n_individuals: list[int], n_genes: list[int],
+                    otimizer: Callable[[np.ndarray], int], n_generations: list[int],
+                    mutation_rate: list[float], selection: list[AbstractSelection],
+                    mutation: list[AbstractMutation], crossover: list[AbstractMutation],
+                    **kwargs: dict[str, any]) -> None:
+        """
+        Performs a grid search over hyperparameters of the genetic algorithm.
+
+        This method iterates through all combinations of provided hyperparameter values
+        and runs the simulation for each combination. It stores the best individual and
+        parameters found for each run.
+
+        Args:
+            n_individuals (list(int)): List of values for the number of individuals.
+            n_genes (list(int)): List of values for the number of genes.
+            otimizer (Callable[[np.ndarray], int]): The function to select best individuals
+                                                    (np.argmin() or np.argmax()).
+            n_generations (list(int)): List of values for the number of generations.
+            mutation_rate (list(float)): List of values for the mutation rate.
+            mutation (list(AbstractMutation)): List of types for the mutation operator.
+            selection (list(AbstractSelection)): List of types for the selection operator.
+            crossover (list(AbstractCrossover)): List of types for the crossover operator.
+            **kwargs: Additional keyword arguments to pass to the subclass constructor.
+        """
+        steps = 10
+        best_fitness = float('-inf') if otimizer == np.argmax else float('inf')
+        combinations = itertools.product(n_individuals, n_genes, n_generations, mutation_rate,
+                                         selection, mutation, crossover) 
+        for params in combinations:
+            num_ind, num_gene, num_gen, rate, sel, mut, cross = params
+
+            model = self.__class__(num_ind, num_gene, otimizer, num_gen, rate, **kwargs)
+            model.set_selection(sel)
+            model.set_crossover(cross)
+            model.set_mutation(mut)
+
+            fitness = 0
+            for _ in range(steps):
+                best_individual = model.simulate(verbose=False)
+                fitness += model.fitness([best_individual])[0]
+            fitness /= steps 
+
+            if(((otimizer == np.argmax) & (fitness > best_fitness)) |
+               ((otimizer == np.argmin) & (fitness < best_fitness))):
+                best_params = {
+                    'n_individuals': num_ind,
+                    'n_genes': num_gene,
+                    'n_generations': num_gen,
+                    'otimizer': otimizer,
+                    'mutation_rate': rate,
+                    'selection': sel,
+                    'crossover': cross,
+                    'mutation': mut,
+                }
+                best_fitness = fitness
+
+        return best_fitness, best_params 
