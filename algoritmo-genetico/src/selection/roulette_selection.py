@@ -7,15 +7,15 @@ class RouletteSelection(AbstractSelection):
     def select(self, fitness: np.ndarray, otimizer: Callable[[np.ndarray], int]) -> np.ndarray:
         """Performs roulette selection on a population.
 
-        This method implements tournament selection, where a random subset of
-        individuals compete, and the fittest one becomes a parent. This process
-        is repeated to select the number of parents.
-        #TODO Refazer explicacao
+        This method implements roulette selection, where individuals are selected
+        proportionally to their fitness values. The probability of selection for each
+        individual is determined by its fitness relative to the total fitness of the
+        population. Higher fitness values increase the likelihood of selection.
 
         Args:
             fitness (np.ndarray): The fitness values of the individuals.
-            otimize (Callable[[np.ndarray], int]) : The function to select best individuals
-                                                    np.argmin() or np.argmax.
+            otimizer (Callable[[np.ndarray], int]): The function to select the best individuals,
+                either np.argmin() or np.argmax().
 
         Returns:
             np.ndarray: The indices of the selected parent individuals.
