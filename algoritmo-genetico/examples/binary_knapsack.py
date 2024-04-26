@@ -11,8 +11,8 @@ class BinaryKnapSack(GABase):
     binary array indicating wheter a item is inside or not.
     """
     
-    def __init__(self, n_individuals: int, n_genes: int, 
-                otimizer: Callable[[np.ndarray], int], n_generations: int = 500,
+    def __init__(self, n_individuals: int = 100, n_genes: int = None, 
+                otimizer: Callable[[np.ndarray], int] = None, n_generations: int = 500,
                 mutation_rate: float = 0.1, weights: np.ndarray = None, 
                 profits: np.ndarray = None, capacity: int = None):
         """
@@ -62,6 +62,6 @@ class BinaryKnapSack(GABase):
                 individuals_fitness[i] = profits_ind
             else:
                 penalty = profits_ind*(ind_weight-self.capacity)
-                individuals_fitness[i] = profits_ind - penalty
+                individuals_fitness[i] = profits_ind  - penalty
 
         return individuals_fitness
