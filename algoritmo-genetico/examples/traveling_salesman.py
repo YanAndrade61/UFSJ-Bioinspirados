@@ -2,7 +2,7 @@ import numpy as np
 from typing import Callable
 from src.GA_base import GABase
 
-class TravelingSalesman(GABase):
+class TravelingSalesmanGA(GABase):
     """
     Solves the Traveling Salesman Problem (TSP) using a Genetic Algorithm.
 
@@ -11,8 +11,8 @@ class TravelingSalesman(GABase):
     different order to pass trougth the cities.
     """
     
-    def __init__(self, n_individuals: int, n_genes: int, 
-                otimizer: Callable[[np.ndarray], int], n_generations: int = 500,
+    def __init__(self, n_individuals: int = 500, n_genes: int = 10, 
+                otimizer: Callable[[np.ndarray], int] = np.argmin, n_generations: int = 500,
                 mutation_rate: float = 0.1, distance_matrix: np.ndarray = None):
         """
         Initializes the binary function optimizer.

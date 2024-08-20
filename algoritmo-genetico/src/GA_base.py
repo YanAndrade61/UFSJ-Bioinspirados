@@ -1,5 +1,6 @@
-import numpy as np
 import itertools
+import numpy as np
+from tqdm import tqdm
 from typing import Callable
 from src.selection.abstract_selection import AbstractSelection
 from src.mutation.abstract_mutation import AbstractMutation
@@ -135,7 +136,7 @@ class GABase:
         best_fitness = float('-inf') if otimizer == np.argmax else float('inf')
         combinations = itertools.product(n_individuals, n_genes, n_generations, mutation_rate,
                                          selection, mutation, crossover) 
-        for params in combinations:
+        for params in tqdm(combinations):
             num_ind, num_gene, num_gen, rate, sel, mut, cross = params
 
             model = self.__class__(num_ind, num_gene, otimizer, num_gen, rate, **kwargs)
@@ -164,3 +165,12 @@ class GABase:
                 best_fitness = fitness
 
         return best_fitness, best_params 
+    
+    def keep_parents(self, n_parents: int) -> None:
+        """
+        For each individual verify if we keep the last individual or change to new one.
+
+        Args:
+            n_parents (int): The number of parents to keep.
+        """
+        self.history_individuals[-1] = self.history_individuals[-1][:n_parents]
